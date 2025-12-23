@@ -1,0 +1,829 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  /* Primary background uses the local image (place your attached image at public/background.jpg) */
+  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('/theatre.jpg') center/cover no-repeat fixed;
+  /* Fallback to the previous external image if the local file is not available */
+  background: url("theatre.jpg") center/cover no-repeat fixed; 
+  overflow-x: hidden;
+  color: white;
+}
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.navbar h1 {
+  font-size: 1.5rem;
+  color: #CBB67A;
+}
+
+.logout-btn {
+  background-color: rgba(220, 20, 60, 0.8);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.logout-btn:hover {
+  background-color: rgba(220, 20, 60, 1) !important;
+  color: black !important;
+}
+
+/* Auth Components */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: calc(100vh - 80px);
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.auth-form {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 400px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.auth-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: rgba(220, 20, 60, 0.8);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.auth-form button:hover {
+  background-color: rgba(220, 20, 60, 1) !important;
+  color: black !important;
+}
+
+.auth-form p {
+  text-align: center;
+  margin-top: 1rem;
+  color: white;
+}
+
+.auth-form a {
+  color: white;
+  text-decoration: none;
+}
+
+.error {
+  background-color: rgba(220, 108, 108, 0.8);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Admin Dashboard */
+.admin-dashboard {
+  padding: 2rem;
+  width: 100vw;
+  height: calc(100vh - 80px);
+  margin: 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.admin-actions button {
+  padding: 0.75rem 1.5rem;
+  background-color: #CBB67A;
+  color: #111;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.admin-actions button:hover {
+  background-color: #BFA55A;
+}
+
+.admin-actions button:active,
+.admin-actions button:focus,
+.admin-actions button.active {
+  background-color: #BFA55A !important;
+  color: black !important;
+  outline: none;
+  border: 2px solid #BFA55A !important;
+  box-shadow: 0 0 10px rgba(191, 165, 90, 0.35);
+}
+
+.admin-form {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 600px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.admin-form h3 {
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.admin-form input, .admin-form select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.admin-form button {
+  padding: 0.75rem 1.5rem;
+  background-color: #CBB67A;
+  color: #111;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.admin-form button:hover {
+  background-color: #BFA55A;
+}
+
+.theatres-list {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.theatre-card {
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 1rem;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* User Dashboard */
+.user-dashboard {
+  padding: 2rem;
+  width: 100vw;
+  height: calc(100vh - 80px);
+  margin: 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto 2rem;
+}
+
+.tabs button {
+  padding: 1rem 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border-bottom: 2px solid transparent;
+  color: white;
+}
+
+.tabs button.active {
+  border-bottom-color: #CBB67A;
+  color: #CBB67A;
+}
+
+.tabs button:hover {
+  color: #BFA55A;
+}
+
+.movies-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.movie-card {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  flex: 1 1 calc(33.333% - 1rem);
+  min-width: 280px;
+  max-width: 400px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.movie-card h3 {
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.movie-card p {
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.book-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #CBB67A;
+  color: #111;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.book-btn:hover {
+  background-color: #BFA55A;
+}
+
+.bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.booking-card {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Movie Seats */
+.movie-seats {
+  padding: 2rem;
+  width: 100vw;
+  height: calc(100vh - 80px);
+  margin: 0;
+  text-align: center;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.movie-seats h2 {
+  color: white;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.lock-timer {
+  background-color: rgba(212, 165, 116, 0.8);
+  color: white;
+  padding: 1rem;
+  border-radius: 4px;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+.screen {
+  background-color: rgba(25, 25, 25, 0.9);
+  color: white;
+  padding: 0.5rem;
+  margin: 2rem 0;
+  border-radius: 4px;
+  font-weight: bold;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.seats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 2rem auto;
+  max-width: 500px;
+  justify-content: center;
+}
+
+.seat {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.seat.available {
+  background-color: rgba(34, 139, 34, 0.8);
+  color: white;
+}
+
+.seat.available:hover {
+  background-color: rgba(34, 139, 34, 1);
+}
+
+.seat.selected {
+  background-color: rgba(65, 105, 225, 0.8);
+  color: white;
+}
+
+.seat.locked {
+  background-color: rgba(255, 140, 0, 0.8);
+  color: white;
+  cursor: not-allowed;
+}
+
+.seat.booked {
+  background-color: rgba(128, 128, 128, 0.8);
+  color: white;
+  cursor: not-allowed;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.legend div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+}
+
+.legend .seat {
+  width: 20px;
+  height: 20px;
+  cursor: default;
+}
+
+.booking-summary {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin: 2rem auto 0;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.booking-summary p {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: white;
+}
+
+.lock-btn, .confirm-btn, .cancel-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0.5rem;
+}
+
+.lock-btn {
+  background-color: rgba(255, 140, 0, 0.8);
+  color: white;
+}
+
+.lock-btn:hover {
+  background-color: rgba(255, 140, 0, 1);
+}
+
+.confirm-btn {
+  background-color: #CBB67A;
+  color: #111;
+}
+
+.confirm-btn:hover {
+  background-color: #BFA55A;
+}
+
+.cancel-btn {
+  background-color: #CBB67A;
+  color: #111;
+}
+
+.cancel-btn:hover {
+  background-color: #BFA55A;
+}
+
+.payment-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Admin Dashboard Enhancements */
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.card-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.card-actions button:first-child {
+  background-color: #CBB67A;
+  color: #111;
+}
+
+.card-actions button:first-child:hover {
+  background-color: #BFA55A;
+  color: #111;
+}
+
+.delete-btn {
+  background-color: #CBB67A !important;
+  color: #111 !important;
+  border: none !important;
+}
+
+.delete-btn:hover {
+  background-color: #BFA55A !important;
+  color: #111 !important;
+}
+
+.movies-list {
+  margin-top: 2rem;
+}
+
+.seat-management {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.seat-management select {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.75rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.movie-seats-admin {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.admin-reserve {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin: 2rem auto;
+  max-width: 400px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.reserve-btn {
+  background-color: rgba(34, 139, 34, 0.8);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.reserve-btn:hover {
+  background-color: rgba(34, 139, 34, 1);
+}
+
+.bookings-info {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin-top: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.booking-info {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+}
+
+.booking-info:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.booking-info p {
+  margin: 0.25rem 0;
+}
+
+.admin-form div {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.admin-form div button {
+  flex: 1;
+}
+
+/* Admin Registration Success */
+.admin-success {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  max-width: 500px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.admin-id-display {
+  margin: 2rem 0;
+}
+
+.admin-id {
+  background: rgba(108, 117, 125, 0.8);
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 1rem 0;
+  font-family: monospace;
+}
+
+.admin-note {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+/* Admin Header */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(108, 155, 209, 0.8);
+}
+
+.admin-info {
+  text-align: right;
+}
+
+.admin-info p {
+  margin: 0.25rem 0;
+  color: white;
+}
+
+/* Dashboard Overview Styles */
+.dashboard-overview {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 2rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.dashboard-overview h3 {
+  color: white;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border-bottom: 2px solid #CBB67A;
+  padding-bottom: 0.5rem;
+}
+
+.stats {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 2px solid #CBB67A;
+  text-align: center;
+  min-width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.stat-card h4 {
+  color: #CBB67A;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.stat-card p {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 1rem 0;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+table th,
+table td {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.75rem;
+  text-align: left;
+  color: white;
+}
+
+table th {
+  background: rgba(0, 0, 0, 0.8);
+  font-weight: bold;
+  border-bottom: 2px solid #CBB67A;
+}
+
+table tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+table tr:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .admin-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .admin-info {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  table {
+    font-size: 0.9rem;
+  }
+  
+  table th,
+  table td {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .admin-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .movie-card {
+    flex: 1 1 100%;
+    min-width: auto;
+    max-width: none;
+  }
+  
+  .movies-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .payment-buttons {
+    flex-direction: column;
+  }
+  
+  .auth-form {
+    margin: 1rem;
+    padding: 1rem;
+  }
+  
+  .admin-dashboard, .user-dashboard {
+    padding: 1rem;
+  }
+}
